@@ -25,8 +25,7 @@ import docx2txt
 import re
 import warnings
 warnings.filterwarnings('ignore')
-from os import listdir
-from os.path import isfile, join
+import os
 
 def leer_documento(nombre_archivo):
     """Funcion que recibe el path de un archivo de word para analizarlo, buscar por un patron y retorna un DataFrame de pandas
@@ -81,12 +80,12 @@ def remover_strings(df):
 
 
 def separar_columnas(df):
-    """Funcion que recibe DataFrame y separa la informacion de ClaimNumber en dos columnas (MediCare y MedicaID).
+    """Funcion que recibe DataFrame y separa la informacion de ClaimNumber en dos columnas (Code1_mc y Code2_mi).
     Tambien separa Address en Direccion, Condado, Estado y Codigo postal"""
 
     codigos= df['ClaimNumber'].str.split(expand=True) #Separar ClaimNumber
-    df['MediCare']=codigos[0] # Primer elemento es MediCare
-    df['MedicaID']=codigos[1] # Segundo elemento es MedicaID. Si no hay, se guarda como vacio
+    df['Code1_mc']=codigos[0] # Primer elemento es Code1_mc
+    df['Code2_mi']=codigos[1] # Segundo elemento es Code2_mi. Si no hay, se guarda como vacio
     df.drop(columns='ClaimNumber',inplace= True) # Remover columna ClaimNumber
 
     # Separar Direccion
@@ -115,15 +114,15 @@ def depurar_datos(df):
 
 
 def depurar_codigos(df):
-    """Funcion que depura codigos de MediCare y MedicaID que no fueron correctamente separados """
-    # Crear DataFrame con los registros que tengan un Medicare distinto a 10 caracteres, Medicare >= 18 caracteres
-    df_test = df[(df['MediCare'].str.len()!=10) | (df['MedicaID'].str.len()!=8)]
-    # Localizar registros con >= 18 caracteres y asigna los 9-17 al MedicaID
-    df_test.loc[df_test['MediCare'].str.len()>=18,'MedicaID']=df_test['MediCare'].str.slice(start=10,stop=18)
-    # Reemplazar MediCare con los caracteres 0-9 (Los 10 primeros)
-    df_test.loc[df_test['MediCare'].str.len()>10,'MediCare']=df_test['MediCare'].str.slice(stop=10)
-    # En los MedicaID mas largos de 8 caracteres, reemplazar MedicaID con los primeros 8 caracteres
-    df_test.loc[df_test['MedicaID'].str.len()>8,'MedicaID']=df_test['MedicaID'].str.slice(stop=8)
+    """Funcion que depura codigos de Code1_mc y Code2_mi que no fueron correctamente separados """
+    # Crear DataFrame con los registros que tengan un Code1_mc distinto a 10 caracteres, Code1_mc >= 18 caracteres
+    df_test = df[(df['Code1_mc'].str.len()!=10) | (df['Code2_mi'].str.len()!=8)]
+    # Localizar registros con >= 18 caracteres y asigna los 9-17 al Code2_mi
+    df_test.loc[df_test['Code1_mc'].str.len()>=18,'Code2_mi']=df_test['Code1_mc'].str.slice(start=10,stop=18)
+    # Reemplazar Code1_mc con los caracteres 0-9 (Los 10 primeros)
+    df_test.loc[df_test['Code1_mc'].str.len()>10,'Code1_mc']=df_test['Code1_mc'].str.slice(stop=10)
+    # En los Code2_mi mas largos de 8 caracteres, reemplazar Code2_mi con los primeros 8 caracteres
+    df_test.loc[df_test['Code2_mi'].str.len()>8,'Code2_mi']=df_test['Code2_mi'].str.slice(stop=8)
     df.update(df_test)
 
     return df
