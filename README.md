@@ -36,10 +36,10 @@ With all records stored in a Pandas DataFrame, a cleanup workflow is executed. T
 * Removes blanks at the beginning and end of each record.
 * Separate the ClaimNumber columns into two desired codes: Code1 and Code2.
 * Separate the Address column into Address, county, state and zip code.
-* Clears unwanted strings written by people in .docx files
+* Remove unwanted strings written by people in .docx files as: "Paso", "Roll", etc
 
 ### Saving files
-With our database in a Pandas Dataframe, it is saved in a **.csv** file and in an **.xlsx** file in the _guardar()_ function.
+With our database in a Pandas Dataframe, it is saved in a **.csv** file and in a **.xlsx** file with _guardar()_ function.
 
 ## What did we accomplish?
 
