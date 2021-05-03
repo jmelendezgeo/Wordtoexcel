@@ -39,4 +39,9 @@ With all records stored in a Pandas DataFrame, a cleanup workflow is executed. T
 * Clears unwanted strings written by people in .docx files
 
 ### Saving files
-With our database in a Pandas Dataframe, it is saved in a .csv file and in an .xlsx file in the _guardar()_ function.
+With our database in a Pandas Dataframe, it is saved in a **.csv** file and in an **.xlsx** file in the _guardar()_ function.
+
+## What did we accomplish?
+
+In minutes, we converted a customer database distributed in 206 .docx files to +60k clean and structured records.
+After using this code, it was easier to enrich the database and store it in MySQL to optimize the company's workflows.
