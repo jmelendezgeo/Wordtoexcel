@@ -12,7 +12,8 @@ This code was used to move a database in Word files into a more structured form.
 
 Initially there was a database of users in many .docx files. The records had the following pattern:
 
-```    Claim Number:	  S0M3C0D3C3Details
+```   
+    Claim Number:	  S0M3C0D3C3Details
     Claim Number Cross Reference:
     Name:	  PEDRO I PEREZ
     Birth Date:	  05/24/1949
